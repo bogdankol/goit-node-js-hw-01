@@ -16,21 +16,22 @@ const readFile = async () => {
 const writeToFile = async (data) => {
   try {
     await fs.writeFile(contactsPath, JSON.stringify(data, null, 2));
-  } catch(err) {
-    console.error(`Wrong path to file!`)
-      console.error(err.message)
+  } catch (err) {
+    console.error(`Wrong path to file!`);
+    console.error(err.message);
   }
 };
 
 const listContacts = async () => {
   const data = await readFile();
+
   return data;
 };
 
 const getContactById = async (contactId) => {
   const contacts = await readFile();
-
   const neededContact = contacts.find((el) => Number(el.id) === contactId);
+
   if (neededContact) {
     return neededContact;
   }
@@ -39,20 +40,18 @@ const getContactById = async (contactId) => {
 
 const removeContact = async (contactId) => {
   const contacts = await readFile();
-  const contactToDelete = contacts.find(el => el.id === contactId);
-  if(contactToDelete) {
-    const filteredContacts = contacts.reduce(
-        (acc, el) => {
-            Number(el.id) !== contactId ? acc.push(el) : acc
-            return acc;
-        },
-        []
-      );
-      await writeToFile(filteredContacts)
-      return filteredContacts
+  const contactToDelete = contacts.find((el) => el.id === contactId);
+
+  if (contactToDelete) {
+    const filteredContacts = contacts.reduce((acc, el) => {
+      Number(el.id) !== contactId ? acc.push(el) : acc;
+      return acc;
+    }, []);
+    await writeToFile(filteredContacts);
+    return filteredContacts;
   }
-  return console.log(`there is no contact with such id`)
-  
+
+  return console.log(`there is no contact with such id`);
 };
 
 const addContact = async (name, email, phone) => {

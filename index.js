@@ -27,11 +27,13 @@ async function invokeAction({ action, id, name, email, phone }) {
 
     case "get":
       const contactById = await getContactById(id);
+
       if (contactById !== void 0 && contactById) {
         console.table(contactById);
       } else {
         console.log(`There is no contact with that id`);
       }
+
       break;
 
     case "add":
