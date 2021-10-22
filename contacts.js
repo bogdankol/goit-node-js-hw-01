@@ -8,7 +8,7 @@ const readFile = async () => {
     const getheredContacts = await fs.readFile(contactsPath, "utf8");
     return JSON.parse(getheredContacts);
   } catch (err) {
-    console.error(`There is no such file directory!`);
+    console.error(`There is no such file or directory!`);
     console.error(err.message);
   }
 };
@@ -60,7 +60,7 @@ const addContact = async (name, email, phone) => {
   const newContact = { id: id + 1, name, email, phone };
 
   contacts.push(newContact);
-  
+
   await writeToFile(contacts);
   return contacts;
 };
