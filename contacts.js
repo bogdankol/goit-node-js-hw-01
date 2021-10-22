@@ -58,7 +58,9 @@ const addContact = async (name, email, phone) => {
   const contacts = await readFile();
   const id = contacts.length;
   const newContact = { id: id + 1, name, email, phone };
+
   contacts.push(newContact);
+  
   await writeToFile(contacts);
   return contacts;
 };
